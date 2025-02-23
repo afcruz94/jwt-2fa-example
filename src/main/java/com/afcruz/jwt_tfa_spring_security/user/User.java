@@ -5,9 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Entity
@@ -28,6 +33,14 @@ public class User implements UserDetails {
     private String secret;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @CreatedBy
+    private String createdBy;
+    @UpdateTimestamp
+    private LocalDateTime modifiedAt;
+    @LastModifiedBy
+    private String modifiedBy;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
