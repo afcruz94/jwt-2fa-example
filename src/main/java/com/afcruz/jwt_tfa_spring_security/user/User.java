@@ -1,6 +1,9 @@
 package com.afcruz.jwt_tfa_spring_security.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,18 +28,28 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Integer id;
+
+    @NotNull
     private String firstname;
+    @NotNull
     private String lastname;
+    @Email
     private String email;
+    @NotNull
+    @Size(min = 8, max = 32, message = "Password must be at least 8 and at most 32 chars")
     private String password;
-    private boolean isMfaEnabled;
     private String secret;
+
+    private boolean isMfaEnabled;
+
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
     @CreatedBy
     private String createdBy;
+
     @UpdateTimestamp
     private LocalDateTime modifiedAt;
     @LastModifiedBy
