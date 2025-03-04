@@ -2,6 +2,7 @@ package com.afcruz.jwt_tfa_spring_security.config;
 
 import com.afcruz.jwt_tfa_spring_security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,6 +26,8 @@ import static org.springframework.http.HttpMethod.*;
 @Configuration
 @RequiredArgsConstructor
 public class AppConfig {
+    @Value("${spring.application.web-url}")
+    private String localhost;
     private final UserRepository userRepository;
 
     @Bean
@@ -53,7 +56,7 @@ public class AppConfig {
         final CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+        config.setAllowedOrigins(Collections.singletonList(localhost));
         config.setAllowedHeaders(Arrays.asList(
                 ORIGIN,
                 CONTENT_TYPE,

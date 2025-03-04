@@ -11,20 +11,26 @@ import dev.samstevens.totp.time.SystemTimeProvider;
 import dev.samstevens.totp.time.TimeProvider;
 import dev.samstevens.totp.util.Utils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 public class TwoFactorAuthenticationServiceImpl implements TwoFactorAuthentication {
+    @Value("${spring.application.qrcode-label}")
+    private String qrCodeLabel;
+    @Value("${spring.application.qrcode-issuer}")
+    private String qrCodeIssuer;
+
     public String generateNewSecret() {
         return new DefaultSecretGenerator().generate();
     }
 
     public String generateQrCodeImageUri(String secret) {
         QrData data = new QrData.Builder()
-                .label("2FA Example")
+                .label(qrCodeLabel)
                 .secret(secret)
-                .issuer("2FA Example by afcruz")
+                .issuer(qrCodeIssuer)
                 .algorithm(HashingAlgorithm.SHA1)
                 .digits(6)
                 .period(30)
