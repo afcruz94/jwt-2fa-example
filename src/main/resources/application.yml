@@ -7,13 +7,16 @@ spring:
         expiration: 86400000 # a day
         refresh-token:
           expiration: 604800000 # 7 days
+    web-url: "http://localhost:4200"
+    qrcode-label: "2FA Example"
+    qrcode-issuer: "afcruz"
   datasource:
     url: jdbc:mysql://localhost:3307/springTFA?allowPublicKeyRetrieval=true&useSSL=false
     username: root
     password: secret
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
