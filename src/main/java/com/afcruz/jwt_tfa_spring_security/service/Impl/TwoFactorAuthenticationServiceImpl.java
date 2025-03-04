@@ -25,7 +25,7 @@ public class TwoFactorAuthenticationServiceImpl implements TwoFactorAuthenticati
                 .label("2FA Example")
                 .secret(secret)
                 .issuer("2FA Example by afcruz")
-                .algorithm(HashingAlgorithm.SHA512)
+                .algorithm(HashingAlgorithm.SHA1)
                 .digits(6)
                 .period(30)
                 .build();
