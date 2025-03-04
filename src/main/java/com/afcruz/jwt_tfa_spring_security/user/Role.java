@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -15,7 +14,7 @@ import static com.afcruz.jwt_tfa_spring_security.user.Permission.MANAGER_CREATE;
 @Getter
 @RequiredArgsConstructor
 public enum Role {
-    USER(Collections.emptySet()),
+    USER(Set.of(USER_READ, USER_WRITE)),
     ADMIN(Set.of(
             ADMIN_READ,
             ADMIN_UPDATE,
