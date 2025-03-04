@@ -40,11 +40,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtServiceImpl jwtService;
     private final TwoFactorAuthentication tfaAuthService;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponse registerUser(RegisterRequest request) {
         final String jwtToken;
         final String refreshToken;
         final String secretImageUri;
         boolean isMfaEnabled = false;
+
+        int existUser = userRepository.verifyIfEmailExist(request.getEmail());
+
+        if (existUser > 0) {
+            logger.error("User [{}] already exists", request.getEmail());
+            return null;
+        }
 
         try {
             var user = User.builder()
@@ -69,7 +76,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         } catch (Exception e) {
             logger.error(e.getMessage());
-
             return null;
         }
 

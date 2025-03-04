@@ -24,7 +24,7 @@ public class AuthenticationControllerV1 {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
-        var response = authenticationService.register(request);
+        var response = authenticationService.registerUser(request);
 
         if (response != null) {
             if (request.isMfaEnabled()) return ResponseEntity.ok(response);
