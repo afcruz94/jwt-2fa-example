@@ -1,10 +1,13 @@
 package com.afcruz.jwt_tfa_spring_security.config;
 
+import com.afcruz.jwt_tfa_spring_security.auditing.ApplicationAuditAware;
 import com.afcruz.jwt_tfa_spring_security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -25,6 +28,7 @@ import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @RequiredArgsConstructor
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class AppConfig {
     @Value("${spring.application.web-url}")
     private String localhost;
@@ -74,5 +78,10 @@ public class AppConfig {
         source.registerCorsConfiguration("/**", config);
 
         return new CorsFilter(source);
+    }
+
+    @Bean
+    public AuditorAware<String> auditorAware() {
+        return new ApplicationAuditAware();
     }
 }

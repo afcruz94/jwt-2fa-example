@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class JwtTfaSpringSecurityApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(JwtTfaSpringSecurityApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(JwtTfaSpringSecurityApplication.class, args);
+    }
 
 }

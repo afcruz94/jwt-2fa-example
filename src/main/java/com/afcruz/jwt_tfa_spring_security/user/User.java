@@ -26,12 +26,14 @@ import java.util.Collection;
 @AllArgsConstructor
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull
+    @Size(min = 2, max = 32, message = "First name must be at least 2 and at most 32 chars")
     private String firstname;
     @NotNull
+    @Size(min = 2, max = 32, message = "Last name must be at least 2 and at most 32 chars")
     private String lastname;
     @Email
     private String email;
@@ -46,8 +48,10 @@ public class User implements UserDetails {
     private Role role;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
     @CreatedBy
+    @Column(updatable = false)
     private String createdBy;
 
     @UpdateTimestamp
